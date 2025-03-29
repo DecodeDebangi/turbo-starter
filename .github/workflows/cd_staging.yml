@@ -8,14 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploying everything to the staging cluster
     steps: 
-      name: SSH Into SErver
-      run: |
-        echo ${{ secrets.SSH_PRIVATE_KEY}} &> ~/ssh_key
-        ssh -i ~/ssh_key root@139.59.1.141
-        cd turbo-starter/ && git pull
-        pnpm install
-        pnpm run build
-        pm2 restart "fe-server"
-        pm2 restart "http-server"
-        pm2 restart "ws-server"
+      - run: |
+          echo ${{ secrets.SSH_PRIVATE_KEY}} &> ~/ssh_key
+          ssh -i ~/ssh_key root@139.59.1.141
+          cd turbo-starter/ && git pull
+          pnpm install
+          pnpm run build
+          pm2 restart "fe-server"
+          pm2 restart "http-server"
+          pm2 restart "ws-server"
 
