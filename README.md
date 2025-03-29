@@ -3,6 +3,7 @@
 This repository serves as a **starter template** for future projects using **Turborepo**. It is designed to streamline the setup process, allowing you to quickly clone and customize it for new projects.
 
 ## 📌 Features
+
 - **TurboRepo Monorepo Setup**
 - **Preconfigured CI/CD Pipeline (GitHub Actions)**
 - **DigitalOcean Deployment with PM2 & Nginx**
@@ -14,80 +15,111 @@ This repository serves as a **starter template** for future projects using **Tur
 ## 🚀 Getting Started
 
 ### 1️⃣ Clone the Repository
+
 To start a new project using this template, clone the repository:
+
 ```sh
-npx create-turbo@latest
+git clone https://github.com/DecodeDebangi/turbo-starter.git my-new-project
+cd my-new-project
 ```
 
-## What's inside?
+### 2️⃣ Remove Existing Git History
 
-This Turborepo includes the following packages/apps:
+Detach the repository from the original remote:
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```sh
+rm -rf .git
 ```
 
-### Develop
+### 3️⃣ Initialize a New Git Repository
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```sh
+git init
+git add .
+git commit -m "Initial commit from TurboRepo starter"
+git branch -M main
+git remote add origin <your-new-repo-url>
+git push -u origin main
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+---
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## ⚙️ Project Setup
 
+### 4️⃣ Install Dependencies
+
+Ensure **pnpm** is installed globally:
+
+```sh
+npm install -g pnpm
 ```
-npx turbo link
+
+Then install project dependencies:
+
+```sh
+pnpm install
 ```
 
-## Useful Links
+### 5️⃣ Setup Environment Variables
 
-Learn more about the power of Turborepo:
+Create **.env** files inside `packages/db/.env` and `apps/web/.env` as needed.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+Example **packages/db/.env**:
+
+```env
+DATABASE_URL="your-database-url"
+```
+
+Example **apps/web/.env**:
+
+```env
+NEXT_PUBLIC_API_URL="http://localhost:3001"
+```
+
+---
+
+## 🏗 Running the Project
+
+### 6️⃣ Start Development Server
+
+```sh
+pnpm run dev
+```
+
+This will start all required services.
+
+### 7️⃣ Running in Production with PM2
+
+```sh
+pm install -g pm2
+pm2 start npm --name "http-server" -- start
+pm2 start npm --name "ws-server" -- start
+pm2 start npm --name "frontend-server" -- start
+pm2 save
+pm2 startup
+```
+
+---
+
+## 🔄 CI/CD Workflow (GitHub Actions)
+
+This project includes **GitHub Actions** workflows for automatic deployments:
+
+- **`main` branch → Deploys to Dev Server**
+- **`production` branch → Deploys to Staging Server**
+
+To deploy changes:
+
+```sh
+git checkout production
+git merge main
+git push origin production
+```
+
+---
+
+## 📝 Author
+
+Created & maintained by **Debangi Choudhury** 🚀
+
+For contributions or issues, feel free to open a PR or reach out!
