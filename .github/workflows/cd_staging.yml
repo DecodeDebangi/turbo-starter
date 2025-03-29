@@ -9,7 +9,7 @@ jobs:
     name: Deploying everything to the staging cluster
     steps: 
       - run: |
-          echo ${{ secrets.SSH_PRIVATE_KEY}} &> ~/ssh_key
+          echo "${{ secrets.SSH_PRIVATE_KEY}}" &> ~/ssh_key
           ssh -i ~/ssh_key root@139.59.1.141
           cd turbo-starter/ && git pull
           pnpm install
