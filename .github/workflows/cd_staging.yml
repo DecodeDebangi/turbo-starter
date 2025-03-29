@@ -15,4 +15,4 @@ jobs:
           touch /home/runner/.ssh/known_hosts
           echo "${{ secrets.KNOWN_HOSTS }}" &> /home/runner/.ssh/known_hosts
           chmod 700 /home/runner/ssh_key
-          ssh -i ~/ssh_key root@139.59.1.141 -t "cd turbo-starter/ && git pull origin main && npm install -g pnpm && pnpm run build && pm2 restart fe-server && pm2 restart http-server && pm2 restart ws-server"
+          ssh -i ~/ssh_key root@139.59.1.141 -t "cd turbo-starter/ && git pull origin main && sudo -s && npm install -g pnpm && pnpm run build && pm2 restart fe-server && pm2 restart http-server && pm2 restart ws-server"
