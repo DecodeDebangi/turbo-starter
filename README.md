@@ -108,12 +108,27 @@ This project includes **GitHub Actions** workflows for automatic deployments:
 - **`main` branch → Deploys to Dev Server**
 - **`production` branch → Deploys to Staging Server**
 
-To deploy changes:
+To deploy changes to the staging server, follow these steps:
 
 ```sh
+git checkout main
+git pull origin main
+git add .
+git commit -m "your comment"
+git push origin HEAD
+```
+
+To deploy changes to the production server, follow these steps:
+
+```sh
+git checkout main
+git pull origin main
 git checkout production
 git merge main
-git push origin production
+Resolve conflicts if any
+git add .
+git commit -m "your comment"
+git push origin HEAD
 ```
 
 ---
