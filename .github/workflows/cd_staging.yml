@@ -10,6 +10,7 @@ jobs:
     steps: 
       - run: |
           echo "${{ secrets.SSH_PRIVATE_KEY}}" &> ~/ssh_key
+          echo "${{ secrets.KNOWN_HOSTS }}" &> ~/.ssh/known_hosts
           ssh -i ~/ssh_key root@139.59.1.141
           cd turbo-starter/ && git pull
           pnpm install
