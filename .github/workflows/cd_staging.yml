@@ -14,6 +14,7 @@ jobs:
           ls /home/runner/.ssh
           touch /home/runner/.ssh/known_hosts
           echo "${{ secrets.KNOWN_HOSTS }}" &> /home/runner/.ssh/known_hosts
+          chmod 700 /home/runner/ssh_key
           ssh -i ~/ssh_key root@139.59.1.141
           cd turbo-starter/ && git pull
           pnpm install
